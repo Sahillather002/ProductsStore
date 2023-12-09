@@ -4,8 +4,13 @@ import { Carousel } from "react-responsive-carousel";
 import { BiArrowBack } from "react-icons/bi";
 const HeroBanner = () => {
   return (
-    <div className="relative text-white text-[20px] w-full max-w-[1360px] mx-auto) ">
-      <Carousel autoPlay={true} infiniteLoop={true} showStatus={false}>
+    <div className="relative text-white text-[20px] w-full mx-auto">
+      <Carousel 
+      autoPlay={true} 
+      infiniteLoop={true} 
+      showStatus={false}
+      thumbWidth={'150px'}
+      >
         <div>
           <img src="/slide-1.png" />
           <div

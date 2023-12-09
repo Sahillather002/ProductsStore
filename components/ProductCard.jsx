@@ -3,8 +3,8 @@ import Link from "next/link";
 const ProductCard = () => {
   return (
     <Link
-      href="/product"
-      className="transform overflow-hidden bg-white duration-200 hover:scale-105 cursor-pointer"
+      href="/product/1"
+      className="transform overflow-hidden bg-blend-darken duration-200 hover:scale-105 cursor-pointer"
     >
       <img className="w-full" src="/product-1.webp" alt="prodcut image" />
       <div className="p-4 text-black/[0.9]">
