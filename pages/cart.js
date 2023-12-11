@@ -1,5 +1,6 @@
 import CartItems from '@/components/CartItems'
 import Wrapper from '@/components/Wrapper'
+import Image from 'next/image'
 import React from 'react'
 
 const cart = () => {
@@ -42,6 +43,15 @@ const cart = () => {
                         text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-95'>
                             Checkout
                         </button>
+                    </div>
+
+                    <div className='flex-[2] flex flex-col items-center pb-[50px] md:-mt-14 '>
+                        <Image
+                            src="/empty-cart.jpg"
+                            width={300}
+                            height={300}
+                            className='w-[300px] md:w-[400px] '
+                        />
                     </div>
                 </div>
             </Wrapper>
