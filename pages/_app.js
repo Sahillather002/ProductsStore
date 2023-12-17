@@ -6,6 +6,11 @@ import { ThemeProvider } from 'next-themes'
 export default function App({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <title>
+          Buy it!
+        </title>
+      </Head>
       <ThemeProvider enableSystem={false}>
         <Header />
         <Component {...pageProps} />
