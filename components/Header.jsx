@@ -7,11 +7,21 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
 import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
+import { MdDarkMode } from "react-icons/md";
+import { MdLightMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
+import { CiDark } from "react-icons/ci";
+
+import { useTheme } from "next-themes";
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showCatMenu, setShowCatMenu] = useState(false);
   const [show, setShow] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  const { theme, setTheme } = useTheme();
+
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
   const controlNavbar = () => {
     if (window.scrollY > 200) {
@@ -25,12 +35,14 @@ const Header = () => {
     }
     setLastScrollY(window.scrollY);
   };
+
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar);
     return () => {
       window.removeEventListener("scroll", controlNavbar);
     };
   }, [lastScrollY]);
+
   return (
     <div
       className={`text-center bg-blue-50 w-full h-[50px] md: h-[80px] bg-blue-50 flex items-center
@@ -81,6 +93,37 @@ const Header = () => {
             </div>
           </div>
         </Link>
+
+        {/* Themes for system */}
+        {currentTheme === "dark" ? (
+          <button
+            className=""
+            onClick={() => {
+              setTheme("light");
+            }}
+          >
+            {" "}
+            <MdDarkMode
+              color="#fde123"
+              className="w-6 md:bg-slate-800 md:w-10 md:mr-4 h-6 md:h-8 rounded-full flex justify-center
+            items-center hover:bg-black/[0.05] cursor-pointer relative"
+            />
+          </button>
+        ) : (
+          <button
+            className=""
+            onClick={() => {
+              setTheme("dark");
+            }}
+          >
+            <MdLightMode
+              color="yellow"
+              enableBackground={true}
+              className="w-6 md:w-10 md:bg-red-400 md:mr-4 h-6 md:h-8 rounded-full flex justify-center
+            items-center hover:bg-black/[0.05] cursor-pointer relative"
+            ></MdLightMode>
+          </button>
+        )}
 
         {/* Mobile icon starting */}
         <div
