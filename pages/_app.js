@@ -7,9 +7,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>
-          Buy it!
-        </title>
+        <title>Buy it!</title>
       </Head>
       <ThemeProvider enableSystem={true}>
         <Header />
