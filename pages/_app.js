@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
           Buy it!
         </title>
       </Head>
-      <ThemeProvider enableSystem={false}>
+      <ThemeProvider enableSystem={true}>
         <Header />
         <Component {...pageProps} />
         <Footer />
