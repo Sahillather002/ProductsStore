@@ -19,7 +19,7 @@ const Header = () => {
   const [show, setShow] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, systemTheme } = useTheme(); //added system theme in the spread
 
   const currentTheme = theme === "system" ? systemTheme : theme;
 
