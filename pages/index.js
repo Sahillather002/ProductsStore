@@ -1,10 +1,17 @@
 import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import Wrapper from "@/components/Wrapper";
+import { useTheme } from "next-themes";
 
 export default function Home() {
+  const { theme } = useTheme();
+
   return (
-    <div className="">
+    <div
+      className={`${
+        theme === "dark" ? "text-white/[0.5]" : "text-black/[0.5]"
+      }`}
+    >
       <HeroBanner />
       <Wrapper>
         {/* heading and paragaph start */}
@@ -13,15 +20,14 @@ export default function Home() {
             Cushioning for Your Miles
           </div>
           <div className="text-md md:text-xl">
-            A lightweight Nike ZoomX midsole is combined with
-            increased stack heights to help provide cushioning
-            during extended stretches of running.
+            A lightweight Nike ZoomX midsole is combined with increased stack
+            heights to help provide cushioning during extended stretches of
+            running.
           </div>
         </div>
         {/* heading and paragaph end */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-14 px-5 md:px-0">
-
           <ProductCard />
           <ProductCard />
           <ProductCard />
@@ -31,5 +37,5 @@ export default function Home() {
         </div>
       </Wrapper>
     </div>
-  )
+  );
 }
