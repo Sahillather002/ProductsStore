@@ -15,6 +15,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  /* Your default theme */
+  --background: white;
+  --foreground: black;
+}
+
+[data-theme="dark"] {
+  --background: black;
+  --foreground: white;
 }
 
 * {
@@ -126,15 +135,22 @@
   position: absolute;
   inset: -0.2rem;
   z-index: -1;
-  background: linear-gradient(var(--angle), 
-    #3798ae,  #C3F2FF, rgb(223, 123, 61));
+  background: linear-gradient(
+    var(--angle),
+    #3798ae,
+    #c3f2ff,
+    rgb(223, 123, 61)
+  );
   animation: rotate 10s linear infinite;
 }
 .moving-border::after {
   filter: blur(10px);
 }
 @keyframes rotate {
-  0%     { --angle: 0deg; }
-  100%   { --angle: 360deg;
+  0% {
+    --angle: 0deg;
+  }
+  100% {
+    --angle: 360deg;
   }
 }

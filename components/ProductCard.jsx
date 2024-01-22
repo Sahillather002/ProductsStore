@@ -7,7 +7,7 @@ const ProductCard = () => {
       className="transform overflow-hidden bg-blend-darken duration-200 hover:scale-105 cursor-pointer"
     >
       <img className="w-full" src="/product-1.webp" alt="prodcut image" />
-      <div className="p-4 text-black/[0.9]">
+      <div className="p-4">
         <h2 className="text-lg ">Product name</h2>
         <div className="flex items-start">
           <p className="mr-2 text-lg font-semibold">$30</p>
