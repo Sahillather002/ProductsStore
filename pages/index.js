@@ -1,16 +1,17 @@
 import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import Wrapper from "@/components/Wrapper";
+import fetchDataFromStrapi from "@/utils/api";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Home({ products }) {
   const { theme } = useTheme();
 
   return (
     <div
-      className={`${
-        theme === "dark" ? "text-white/[0.5]" : "text-black/[0.5]"
-      }`}
+      className={`${theme === "dark" ? "text-white/[0.5]" : "text-black/[0.5]"
+        }`}
     >
       <HeroBanner />
       <Wrapper>
@@ -28,14 +29,18 @@ export default function Home() {
         {/* heading and paragaph end */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-14 px-5 md:px-0">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {products?.data?.map((product) => (
+            <ProductCard key={product.id} data={product} />
+          ))}
         </div>
       </Wrapper>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const products = await fetchDataFromStrapi("api/products?populate=*");
+  return {
+    props: { products }
+  }
 }

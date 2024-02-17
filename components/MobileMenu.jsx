@@ -14,7 +14,12 @@ const subMenuData = [
   { id: 3, name: "Running shoes", doc_count: 64 },
   { id: 4, name: "Football shoes", doc_count: 107 },
 ];
-const MenuMobile = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
+const MenuMobile = ({
+  showCatMenu,
+  setShowCatMenu,
+  setMobileMenu,
+  categories,
+}) => {
   return (
     <ul
       className={`flex flex-col md:hidden font-bold absolute top-[60px] left-0 w-full h-[calc(100vh-50px)] bg-white border-t text-black`}
@@ -33,13 +38,15 @@ const MenuMobile = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
                 </div>
                 {showCatMenu && (
                   <ul className="bg-black/[0.05] -mx-5 mt-4 -mb-4">
-                    {subMenuData.map((submenu) => {
+                    {categories?.map(({ attributes: category, id }) => {
                       return (
-                        <Link key={submenu.id} href="/">
+                        <Link key={id} href={`/category/${category.slug}`}>
                           <li className="py-4 px-8 border-t flex justify-between">
-                            {submenu.name}
+                            {category.name}
 
-                            <span className="opacity-50 text-sm">45</span>
+                            <span className="opacity-50 text-sm">
+                              {`(${category?.products?.data?.length})`}
+                            </span>
                           </li>
                         </Link>
                       );
@@ -52,7 +59,9 @@ const MenuMobile = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
                 href={item?.url ? item.url : "/"}
                 onClick={() => setMobileMenu(false)}
               >
-                <li className="py-4 px-5 border-b flex hover:bg-black/[0.5]">{item.name}</li>
+                <li className="py-4 px-5 border-b flex hover:bg-black/[0.5]">
+                  {item.name}
+                </li>
               </Link>
             )}
           </React.Fragment>

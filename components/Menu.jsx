@@ -14,7 +14,7 @@ const subMenuData = [
   { id: 3, name: "Running shoes", doc_count: 64 },
   { id: 4, name: "Football shoes", doc_count: 107 },
 ];
-const Menu = ({ showCatMenu, setShowCatMenu }) => {
+const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
   return (
     <ul className={`hidden md:flex items-center gap-8 font-medium text-black`}>
       {data.map((item) => {
@@ -33,20 +33,22 @@ const Menu = ({ showCatMenu, setShowCatMenu }) => {
                     className="bg-white absolute top-6 left-0 min-w-[250px] 
                   px-1 text-black shadow-lg rounded-md py-1"
                   >
-                    {subMenuData.map((submenu) => {
+                    {categories?.map(({ attributes: category, id }) => {
                       return (
                         <Link
-                          key={submenu.id}
-                          href="/"
+                          key={id}
+                          href={`/category/${category.slug}`}
                           onClick={() => setShowCatMenu(false)}
                         >
                           <li
                             className="h-12 flex justify-between items-center
                             px-3 hover:bg-pink-600/[0.03] rounded-md"
                           >
-                            {submenu.name}
+                            {category.name}
 
-                            <span className="opacity-50 text-sm">45</span>
+                            <span className="opacity-50 text-sm">
+                              {`(${category?.products?.data?.length})`}
+                            </span>
                           </li>
                         </Link>
                       );
