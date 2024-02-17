@@ -13,13 +13,15 @@ import { CiLight } from "react-icons/ci";
 import { CiDark } from "react-icons/ci";
 
 import { useTheme } from "next-themes";
+import fetchDataFromStrapi from "@/utils/api";
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showCatMenu, setShowCatMenu] = useState(false);
   const [show, setShow] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [categories, setCategories] = useState(null);
 
-  const { theme, setTheme, systemTheme } = useTheme(); //added system theme in the spread
+  const { theme, setTheme, systemTheme } = useTheme();
 
   const currentTheme = theme === "system" ? systemTheme : theme;
 
@@ -43,6 +45,13 @@ const Header = () => {
     };
   }, [lastScrollY]);
 
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+  const fetchCategories = async () => {
+    const { data } = await fetchDataFromStrapi("api/categories?populate=*");
+    setCategories(data);
+  };
   return (
     <div
       className={`text-center bg-blue-50 w-full h-[50px] md: h-[80px] bg-blue-50 flex items-center
@@ -54,12 +63,17 @@ const Header = () => {
             <img src="/logo.svg" className={`w-[40px] md: w-[80px]`}></img>
           </Link>
         </div>
-        <Menu showCatMenu={showCatMenu} setShowCatMenu={setShowCatMenu} />
+        <Menu
+          showCatMenu={showCatMenu}
+          setShowCatMenu={setShowCatMenu}
+          categories={categories}
+        />
         {mobileMenu && (
           <MenuMobile
             showCatMenu={showCatMenu}
             setShowCatMenu={setShowCatMenu}
             setMobileMenu={setMobileMenu}
+            categories={categories}
           />
         )}
       </Wrapper>

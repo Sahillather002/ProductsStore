@@ -1,20 +1,39 @@
 import React from "react";
 import Link from "next/link";
-const ProductCard = () => {
+import Image from "next/image";
+import { getDiscountedPrice } from "@/utils/helper";
+
+const ProductCard = ({ data }) => {
+  console.log(data);
+  const products = data?.attributes;
+  const id = data?.id;
   return (
     <Link
-      href="/product/1"
+      href={`/product/${products?.slug}`}
       className="transform overflow-hidden bg-blend-darken duration-200 hover:scale-105 cursor-pointer"
     >
-      <img className="w-full" src="/product-1.webp" alt="prodcut image" />
+      <Image
+        width={500}
+        height={500}
+        className="w-full"
+        src={products?.thumbnail?.data?.attributes?.url || "/product-1.webp"}
+        alt="prodcut image"
+      />
       <div className="p-4">
-        <h2 className="text-lg ">Product name</h2>
+        <h2 className="text-lg ">{products?.name || "Name"}</h2>
         <div className="flex items-start">
-          <p className="mr-2 text-lg font-semibold">$30</p>
-          <p className="text-base font-medium line-through">$40</p>
-          <p className="ml-auto text-base font-medium text-green-400">
-            30% off
-          </p>
+          <p className="mr-2 text-lg font-semibold">&#8377;{products?.price}</p>
+          {products?.originalPrice && (
+            <>
+              <p className="text-base font-medium line-through">
+                &#8377;{products?.originalPrice}
+              </p>
+              <p className="ml-auto text-base font-medium text-green-400">
+                {getDiscountedPrice(products?.originalPrice, products.price)}%
+                off
+              </p>
+            </>
+          )}
         </div>
       </div>
     </Link>
