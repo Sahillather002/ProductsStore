@@ -9,11 +9,9 @@ import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import { MdDarkMode } from "react-icons/md";
 import { MdLightMode } from "react-icons/md";
-import { CiLight } from "react-icons/ci";
-import { CiDark } from "react-icons/ci";
 
 import { useTheme } from "next-themes";
-import fetchDataFromStrapi from "@/utils/api";
+import fetchDataFromStrapi from "../utils/api";
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showCatMenu, setShowCatMenu] = useState(false);
@@ -60,7 +58,11 @@ const Header = () => {
       <Wrapper className={`flex gap-10 p-4 justify-between`}>
         <div>
           <Link href="/">
-            <img src="/logo.svg" className={`w-[40px] md: w-[80px]`}></img>
+            <img
+              src="/logo.svg"
+              alt=""
+              className={`w-[40px] md: w-[80px]`}
+            ></img>
           </Link>
         </div>
         <Menu
@@ -141,7 +143,7 @@ const Header = () => {
 
         {/* Mobile icon starting */}
         <div
-          className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md: hidden justify-center
+          className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md: justify-center 
         items-center hover:bg-black/[0.05] cursor-pointer relative"
         >
           {mobileMenu ? (

@@ -4,7 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import ProductCard from "./ProductCard";
 import { useTheme } from "next-themes";
 
-const RelatedProducts = () => {
+const RelatedProducts = ({ products }) => {
   const { theme } = useTheme();
 
   let textColor = theme === "dark" ? "text-white/[0.8]" : "text-black/[0.8]";
@@ -31,12 +31,16 @@ const RelatedProducts = () => {
         containerClass="-mx-[10px]  "
         itemClass=" px-[20px] "
       >
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {products?.data?.map((product) => (
+          <ProductCard key={product.id} data={product} />
+        ))}
+        {products?.data?.length === 0 ? (
+          <>
+            <p> Don't have any related products</p>
+          </>
+        ) : (
+          ``
+        )}
       </Carousel>
     </div>
   );

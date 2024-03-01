@@ -1,12 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getDiscountedPrice } from "@/utils/helper";
+
+import { getDiscountedPrice } from "../utils/helper";
 
 const ProductCard = ({ data }) => {
-  console.log(data);
   const products = data?.attributes;
-  const id = data?.id;
+
   return (
     <Link
       href={`/product/${products?.slug}`}
