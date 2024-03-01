@@ -2,20 +2,24 @@ import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 
-import fetchDataFromStrapi from "@/utils/api";
-import Wrapper from "@/components/Wrapper";
-import ProductCard from "@/components/ProductCard";
+import fetchDataFromStrapi from "../../utils/api";
+import Wrapper from "../../components/Wrapper";
+import ProductCard from "../../components/ProductCard";
 
 const maxPageSize = 3;
 
 const Category = ({ category, products, slug }) => {
   const [pageIndex, setPageIndex] = useState(1);
 
-  const { pageData, error, isLoading } = useSWR(
+  const {
+    data: pageData,
+    error,
+    isLoading,
+  } = useSWR(
     `api/products?populate=*&[filters][categories][slug][$eq]=${slug}&pagination[page]=${pageIndex}&pagination[pageSize]=${maxPageSize}`,
     fetchDataFromStrapi,
     {
-      fallback: products,
+      fallbackData: products,
     }
   );
   const { query } = useRouter();
@@ -23,9 +27,6 @@ const Category = ({ category, products, slug }) => {
     setPageIndex(1);
   }, [query]);
 
-  console.log("data", pageData);
-  console.log(slug);
-  // console.log(router)
   return (
     <div className="w-full md:py-20">
       <Wrapper>
@@ -51,13 +52,11 @@ const Category = ({ category, products, slug }) => {
               Previous
             </button>
 
-            <span className="font-bold">{`${pageIndex} of ${
-              data && data.meta.pagination.pageCount
-            }`}</span>
+            <span className="font-bold">{`${pageIndex} of ${pageData.meta.pagination.pageCount}`}</span>
 
             <button
               className={`rounded py-2 px-4 bg-black text-white disabled:bg-gray-200 disabled:text-gray-500`}
-              disabled={pageIndex === (data && data.meta.pagination.pageCount)}
+              disabled={pageIndex === pageData.meta.pagination.pageCount}
               onClick={() => setPageIndex(pageIndex + 1)}
             >
               Next
@@ -67,7 +66,7 @@ const Category = ({ category, products, slug }) => {
         {/* PAGINATION BUTTONS END */}
         {isLoading && (
           <div className="absolute top-0 left-0 w-full h-full bg-white/[0.5] flex flex-col gap-5 justify-center items-center">
-            <img src="/logo.svg" width={150} />
+            <img src="/logo.svg" alt="" width={150} />
             <span className="text-2xl font-medium">Loading...</span>
           </div>
         )}
@@ -79,8 +78,8 @@ const Category = ({ category, products, slug }) => {
 export default Category;
 
 export async function getStaticPaths() {
-  const Category = await fetchDataFromStrapi("api/categories?populate=*");
-  const paths = Category?.data?.map((item) => ({
+  const categories = await fetchDataFromStrapi("api/categories?populate=*");
+  const paths = categories?.data?.map((item) => ({
     params: {
       slug: item.attributes.slug,
     },
@@ -97,7 +96,7 @@ export async function getStaticProps({ params: { slug } }) {
     `api/categories?filters[slug][$eq]=${slug}`
   );
   const products = await fetchDataFromStrapi(
-    `api/products?populate=*&[filters][categories][slug][$eq]=${slug}&pagination[page]=${pageIndex}&pagination[pageSize]=${maxPageSize}`
+    `api/products?populate=*&[filters][categories][slug][$eq]=${slug}&pagination[page]=1&pagination[pageSize]=${maxPageSize}`
   );
 
   return {

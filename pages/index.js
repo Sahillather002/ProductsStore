@@ -1,17 +1,19 @@
-import HeroBanner from "@/components/HeroBanner";
-import ProductCard from "@/components/ProductCard";
-import Wrapper from "@/components/Wrapper";
-import fetchDataFromStrapi from "@/utils/api";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+
+import HeroBanner from "../components/HeroBanner";
+import ProductCard from "../components/ProductCard";
+import Wrapper from "../components/Wrapper";
+import fetchDataFromStrapi from "../utils/api";
+import productsDemoData from "../demoData/product";
 
 export default function Home({ products }) {
   const { theme } = useTheme();
 
   return (
     <div
-      className={`${theme === "dark" ? "text-white/[0.5]" : "text-black/[0.5]"
-        }`}
+      className={`${
+        theme === "dark" ? "text-white/[0.5]" : "text-black/[0.5]"
+      }`}
     >
       <HeroBanner />
       <Wrapper>
@@ -41,6 +43,6 @@ export default function Home({ products }) {
 export async function getStaticProps() {
   const products = await fetchDataFromStrapi("api/products?populate=*");
   return {
-    props: { products }
-  }
+    props: { products: products || productsDemoData },
+  };
 }
