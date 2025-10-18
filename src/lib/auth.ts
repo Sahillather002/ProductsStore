@@ -1,15 +1,20 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { supabase } from './supabase'
-import { supabaseAdmin } from './supabase-admin'
 
 // Server-side Supabase client for API routes and server components
 export async function createServerSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error('Missing Supabase environment variables during build')
+  }
+
   const cookieStore = await cookies()
 
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         get(name: string) {
@@ -36,27 +41,36 @@ export async function createServerSupabaseClient() {
 
 // Get current user from server
 export async function getCurrentUser() {
-  const supabase = await createServerSupabaseClient()
-  const { data: { user }, error } = await supabase.auth.getUser()
-  
-  if (error || !user) {
+  try {
+    const supabase = await createServerSupabaseClient()
+    const { data: { user }, error } = await supabase.auth.getUser()
+
+    if (error || !user) {
+      return null
+    }
+
+    // Fetch user profile from users table
+    const { data: profile } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', user.id)
+      .single()
+
+    return profile
+  } catch (error) {
+    console.error('Error getting current user:', error)
     return null
   }
-
-  // Fetch user profile from users table
-  const { data: profile } = await supabase
-    .from('users')
-    .select('*')
-    .eq('id', user.id)
-    .single()
-
-  return profile
 }
 
 // Check if user is admin
 export async function isAdmin() {
-  const user = await getCurrentUser()
-  return user?.role === 'ADMIN'
+  try {
+    const user = await getCurrentUser()
+    return user?.role === 'ADMIN'
+  } catch (error) {
+    return false
+  }
 }
 
 // Require authentication (throws error if not authenticated)

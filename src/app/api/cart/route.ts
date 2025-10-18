@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerSupabaseClient } from '@/lib/auth'
-import { supabase } from '@/lib/supabase'
 
 export async function GET() {
   try {
     const supabase = await createServerSupabaseClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()
-    
+
     if (authError || !user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
@@ -33,7 +32,7 @@ export async function GET() {
         .single()
 
       if (createError) throw createError
-      
+
       return NextResponse.json({
         id: newCart.id,
         user_id: newCart.user_id,

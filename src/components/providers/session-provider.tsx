@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
-import { supabase } from '@/lib/supabase'
 
 interface AuthContextType {
   user: User | null
@@ -15,7 +14,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   profile: null,
-  loading: true,
+  loading: false,
   signOut: async () => {},
   refreshProfile: async () => {},
 })
@@ -31,16 +30,33 @@ interface ProvidersProps {
 export function SessionProviderWrapper({ children }: ProvidersProps) {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<any | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
+
+  // Lazy load supabase to avoid build-time issues
+  const getSupabase = () => {
+    try {
+      return require('@/lib/supabase').supabase
+    } catch (error) {
+      console.warn('Supabase not available during build')
+      return null
+    }
+  }
 
   const fetchProfile = async (userId: string) => {
-    const { data } = await supabase
-      .from('users')
-      .select('*')
-      .eq('id', userId)
-      .single()
-    
-    setProfile(data)
+    const supabase = getSupabase()
+    if (!supabase) return
+
+    try {
+      const { data } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', userId)
+        .single()
+
+      setProfile(data)
+    } catch (error) {
+      console.error('Failed to fetch profile:', error)
+    }
   }
 
   const refreshProfile = async () => {
@@ -50,12 +66,23 @@ export function SessionProviderWrapper({ children }: ProvidersProps) {
   }
 
   useEffect(() => {
+    const supabase = getSupabase()
+    if (!supabase) {
+      setLoading(false)
+      return
+    }
+
+    setLoading(true)
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
       if (session?.user) {
         fetchProfile(session.user.id)
       }
+      setLoading(false)
+    }).catch((error) => {
+      console.error('Failed to get session:', error)
       setLoading(false)
     })
 
@@ -76,9 +103,16 @@ export function SessionProviderWrapper({ children }: ProvidersProps) {
   }, [])
 
   const signOut = async () => {
-    await supabase.auth.signOut()
-    setUser(null)
-    setProfile(null)
+    const supabase = getSupabase()
+    if (!supabase) return
+
+    try {
+      await supabase.auth.signOut()
+      setUser(null)
+      setProfile(null)
+    } catch (error) {
+      console.error('Failed to sign out:', error)
+    }
   }
 
   return (
