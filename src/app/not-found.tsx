@@ -1,6 +1,6 @@
+'use client'
+
 import Link from 'next/link'
-import { Home, Search, ArrowLeft } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 
 export default function NotFound() {
   return (
@@ -15,18 +15,12 @@ export default function NotFound() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button asChild size="lg" className="w-full sm:w-auto">
-            <Link href="/">
-              <Home className="mr-2 h-5 w-5" />
-              Back to Home
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-            <Link href="/categories/electronics">
-              <Search className="mr-2 h-5 w-5" />
-              Browse Products
-            </Link>
-          </Button>
+          <Link href="/" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
+            Back to Home
+          </Link>
+          <Link href="/categories/electronics" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
+            Browse Products
+          </Link>
         </div>
 
         <div className="mt-12 pt-8 border-t">
@@ -34,18 +28,18 @@ export default function NotFound() {
             Popular Categories
           </p>
           <div className="flex flex-wrap gap-2 justify-center">
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/categories/electronics">Electronics</Link>
-            </Button>
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/categories/fashion">Fashion</Link>
-            </Button>
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/categories/home-garden">Home & Garden</Link>
-            </Button>
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/categories/sports">Sports</Link>
-            </Button>
+            <Link href="/categories/electronics" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4">
+              Electronics
+            </Link>
+            <Link href="/categories/fashion" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4">
+              Fashion
+            </Link>
+            <Link href="/categories/home-garden" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4">
+              Home & Garden
+            </Link>
+            <Link href="/categories/sports" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4">
+              Sports
+            </Link>
           </div>
         </div>
       </div>
