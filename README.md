@@ -1,40 +1,244 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ShopHub - Premium E-Commerce Platform
 
-## Getting Started
+A comprehensive, full-stack e-commerce application built with Next.js 15, TypeScript, Supabase, and modern web technologies. This platform features all the essential functionality you'd expect from a production-ready e-commerce site.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Core E-Commerce Features
+- **Product Catalog**: Browse products with categories, search, and filtering
+- **Shopping Cart**: Full cart management with add/update/remove functionality
+- **User Authentication**: Secure login/registration with Supabase Auth
+- **Order Management**: Complete order processing and tracking
+- **Payment Integration**: Stripe payment gateway integration
+- **Review System**: Customer reviews and ratings
+- **Wishlist**: Save favorite products for later
+
+### Advanced Features
+- **Admin Dashboard**: Comprehensive admin panel for store management
+- **Image Hosting**: Cloudinary integration for product images
+- **Real-time Updates**: WebSocket support for live notifications
+- **Responsive Design**: Mobile-first design with Tailwind CSS
+- **Database Management**: Supabase PostgreSQL with Row Level Security
+- **API Integration**: RESTful APIs for all functionality
+
+### User Experience
+- **Modern UI**: Beautiful, intuitive interface with shadcn/ui components
+- **Search & Filter**: Advanced product search and category filtering
+- **Order History**: Complete order tracking and management
+- **User Profile**: Personal dashboard with order history and preferences
+- **Secure Checkout**: Safe and secure payment processing
+
+## 🛠 Technology Stack
+
+### Frontend
+- **Next.js 15**: React framework with App Router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first CSS framework
+- **shadcn/ui**: Modern UI component library
+- **Lucide React**: Beautiful icon library
+- **Framer Motion**: Smooth animations
+
+### Backend
+- **Next.js API Routes**: Server-side API endpoints
+- **Supabase**: PostgreSQL database with real-time capabilities
+- **Supabase Auth**: Authentication and authorization
+- **Row Level Security**: Database-level security policies
+- **Stripe**: Payment processing
+- **Cloudinary**: Image hosting and management
+
+### Development Tools
+- **ESLint**: Code linting and formatting
+- **TypeScript**: Static type checking
+- **Hot Reload**: Fast development experience
+
+## 📦 Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd shophub
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up Supabase**
+   - Create a project at https://app.supabase.com
+   - Run `supabase-schema.sql` in SQL Editor
+   - Run `supabase-sample-data-auth.sql` in SQL Editor
+   - Get your API keys from Settings > API
+
+4. **Set up environment variables**
+   ```bash
+   cp ENV_TEMPLATE.txt .env
+   ```
+   
+   Configure the following variables in `.env`:
+   ```env
+   # Supabase (REQUIRED)
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+   
+   # App
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   
+   # Stripe (Optional)
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+   STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+   
+   # Cloudinary (Optional)
+   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+   CLOUDINARY_API_KEY=your_cloudinary_api_key
+   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+   ```
+
+5. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+## 🏗 Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   │   ├── auth/          # Authentication endpoints
+│   │   ├── cart/          # Shopping cart API
+│   │   ├── checkout/      # Payment processing
+│   │   ├── orders/        # Order management
+│   │   ├── products/      # Product catalog
+│   │   ├── reviews/       # Review system
+│   │   └── wishlist/      # Wishlist functionality
+│   ├── admin/             # Admin dashboard
+│   ├── dashboard/         # User dashboard
+│   └── globals.css        # Global styles
+├── components/            # React components
+│   ├── ui/               # shadcn/ui components
+│   ├── cart/             # Cart-related components
+│   └── providers/        # Context providers
+├── lib/                  # Utility libraries
+│   ├── auth.ts           # Supabase Auth utilities
+│   ├── supabase.ts       # Supabase client
+│   ├── stripe.ts         # Stripe configuration
+│   └── cloudinary.ts     # Cloudinary setup
+└── hooks/                # Custom React hooks
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎯 Key Features Explained
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Shopping Cart System
+- Persistent cart storage in database
+- Real-time cart updates
+- Quantity management
+- Checkout integration
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Admin Dashboard
+- Product management (CRUD operations)
+- Order tracking and management
+- Sales analytics and reporting
+- User management
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Payment Processing
+- Stripe integration for secure payments
+- Webhook handling for payment confirmation
+- Order status updates
+- Refund processing
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Review System
+- Customer ratings and reviews
+- Review moderation
+- Average rating calculations
+- Verified purchase badges
 
-## Learn More
+## 🔧 Development Commands
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Development
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Database
+npm run db:push      # Push schema to database
+npm run db:studio    # Open Prisma Studio
+npm run seed         # Seed database with sample data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Code Quality
+npm run lint         # Run ESLint
+npm run type-check   # Run TypeScript checks
+```
 
-## Deploy on Vercel
+## 🚀 Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This application is designed to be deployed on modern hosting platforms:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. **Vercel** (Recommended)
+   - Automatic deployments from Git
+   - Built-in Next.js optimization
+   - Edge functions support
+
+2. **Netlify**
+   - Static site generation
+   - Serverless functions
+   - Form handling
+
+3. **AWS/Google Cloud**
+   - Full control over infrastructure
+   - Scalability options
+   - Custom configurations
+
+## 📝 API Documentation
+
+### Products API
+- `GET /api/products` - Get all products with filtering
+- `GET /api/products/[id]` - Get single product
+- `POST /api/products` - Create new product (admin)
+- `PUT /api/products/[id]` - Update product (admin)
+- `DELETE /api/products/[id]` - Delete product (admin)
+
+### Cart API
+- `GET /api/cart` - Get user's cart
+- `POST /api/cart` - Add item to cart
+- `PUT /api/cart` - Update cart item
+- `DELETE /api/cart` - Remove item from cart
+
+### Orders API
+- `GET /api/orders/user` - Get user's orders
+- `POST /api/checkout` - Process checkout
+- `GET /api/admin/dashboard` - Get admin stats
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Next.js team for the amazing framework
+- shadcn/ui for beautiful components
+- Prisma for excellent ORM
+- Stripe for payment processing
+- Cloudinary for image hosting
+
+## 📞 Support
+
+For support and questions:
+- Create an issue in the repository
+- Check the documentation
+- Review the code comments
+
+---
+
+**Built with ❤️ using modern web technologies**

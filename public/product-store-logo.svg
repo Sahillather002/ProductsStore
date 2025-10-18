@@ -1,0 +1,10 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="40" height="40" rx="8" fill="#2563eb"/>
+  <!-- Shopping bag icon -->
+  <path d="M12 16h16v12a4 4 0 01-4 4H16a4 4 0 01-4-4V16z" fill="white"/>
+  <path d="M8 12h24v4H8v-4z" fill="white"/>
+  <circle cx="20" cy="12" r="2" fill="white"/>
+  <!-- Handle -->
+  <path d="M16 8c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="white" stroke-width="2" fill="none"/>
+</svg>

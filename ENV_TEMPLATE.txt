@@ -1,0 +1,57 @@
+# =====================================================
+# ShopHub E-Commerce - Environment Variables
+# =====================================================
+# Copy this file to .env and fill in your actual values
+
+# Supabase Configuration
+# Get these from your Supabase project settings: https://app.supabase.com/project/_/settings/api
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# App Configuration
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Stripe Configuration (for payments)
+# Get these from: https://dashboard.stripe.com/apikeys
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+
+# Cloudinary Configuration (for image uploads)
+# Get these from: https://cloudinary.com/console
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+# =====================================================
+# SETUP INSTRUCTIONS
+# =====================================================
+#
+# 1. Create a Supabase Project:
+#    - Go to https://app.supabase.com
+#    - Create a new project
+#    - Copy the Project URL and anon key from Settings > API
+#
+# 2. Run the Schema:
+#    - Go to SQL Editor in your Supabase dashboard
+#    - Copy and paste the contents of supabase-schema.sql
+#    - Run the SQL to create all tables
+#
+# 3. Add Sample Data:
+#    - Copy and paste the contents of supabase-sample-data.sql
+#    - Run the SQL to populate tables with sample data
+#
+# 4. Configure Authentication:
+#    - Go to Authentication > Providers in Supabase
+#    - Enable Email provider
+#    - Optionally enable Google, GitHub, etc.
+#
+# 5. Update this file:
+#    - Rename ENV_TEMPLATE.txt to .env
+#    - Fill in all the values above
+#
+# 6. Start the development server:
+#    - Run: npm run dev
+#
+# =====================================================
