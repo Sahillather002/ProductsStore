@@ -4,40 +4,168 @@ import Link from 'next/link'
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4">
-      <div className="max-w-2xl w-full text-center">
-        <div className="mb-8">
-          <h1 className="text-9xl font-bold text-primary mb-4">404</h1>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Page Not Found</h2>
-          <p className="text-lg text-muted-foreground mb-8">
+    <div style={{
+      minHeight: '100vh',
+      backgroundColor: '#f8fafc',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px',
+      fontFamily: 'system-ui, -apple-system, sans-serif'
+    }}>
+      <div style={{
+        maxWidth: '600px',
+        width: '100%',
+        textAlign: 'center',
+        backgroundColor: 'white',
+        borderRadius: '12px',
+        padding: '48px',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+      }}>
+        <div style={{ marginBottom: '32px' }}>
+          <h1 style={{
+            fontSize: '120px',
+            fontWeight: 'bold',
+            color: '#3b82f6',
+            margin: '0',
+            lineHeight: '1',
+            marginBottom: '16px'
+          }}>
+            404
+          </h1>
+          <h2 style={{
+            fontSize: '28px',
+            fontWeight: 'bold',
+            color: '#1f2937',
+            margin: '0',
+            marginBottom: '16px'
+          }}>
+            Page Not Found
+          </h2>
+          <p style={{
+            fontSize: '18px',
+            color: '#6b7280',
+            margin: '0',
+            lineHeight: '1.6'
+          }}>
             Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link href="/" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px',
+          marginBottom: '32px'
+        }}>
+          <Link href="/" style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            padding: '12px 24px',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontSize: '16px',
+            fontWeight: '500',
+            transition: 'background-color 0.2s'
+          }}>
             Back to Home
           </Link>
-          <Link href="/categories/electronics" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
+          <Link href="/categories/electronics" style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'transparent',
+            color: '#3b82f6',
+            padding: '12px 24px',
+            border: '2px solid #3b82f6',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontSize: '16px',
+            fontWeight: '500',
+            transition: 'all 0.2s'
+          }}>
             Browse Products
           </Link>
         </div>
 
-        <div className="mt-12 pt-8 border-t">
-          <p className="text-sm text-muted-foreground mb-4">
+        <div style={{
+          borderTop: '1px solid #e5e7eb',
+          paddingTop: '24px'
+        }}>
+          <p style={{
+            fontSize: '14px',
+            color: '#6b7280',
+            margin: '0 0 16px 0'
+          }}>
             Popular Categories
           </p>
-          <div className="flex flex-wrap gap-2 justify-center">
-            <Link href="/categories/electronics" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4">
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '8px',
+            justifyContent: 'center'
+          }}>
+            <Link href="/categories/electronics" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#f3f4f6',
+              color: '#374151',
+              padding: '8px 16px',
+              borderRadius: '6px',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: '500',
+              transition: 'background-color 0.2s'
+            }}>
               Electronics
             </Link>
-            <Link href="/categories/fashion" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4">
+            <Link href="/categories/fashion" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#f3f4f6',
+              color: '#374151',
+              padding: '8px 16px',
+              borderRadius: '6px',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: '500',
+              transition: 'background-color 0.2s'
+            }}>
               Fashion
             </Link>
-            <Link href="/categories/home-garden" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4">
+            <Link href="/categories/home-garden" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#f3f4f6',
+              color: '#374151',
+              padding: '8px 16px',
+              borderRadius: '6px',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: '500',
+              transition: 'background-color 0.2s'
+            }}>
               Home & Garden
             </Link>
-            <Link href="/categories/sports" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4">
+            <Link href="/categories/sports" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#f3f4f6',
+              color: '#374151',
+              padding: '8px 16px',
+              borderRadius: '6px',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: '500',
+              transition: 'background-color 0.2s'
+            }}>
               Sports
             </Link>
           </div>
