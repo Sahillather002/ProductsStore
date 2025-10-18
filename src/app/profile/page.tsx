@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -17,14 +16,31 @@ export default function ProfilePage() {
   const router = useRouter()
   const { toast } = useToast()
 
+  // Lazy load supabase to avoid build-time issues
+  const getSupabase = async () => {
+    try {
+      const { supabase } = await import('@/lib/supabase')
+      return supabase
+    } catch (error) {
+      console.warn('Supabase not available during build')
+      return null
+    }
+  }
+
   useEffect(() => {
     checkUser()
   }, [])
 
   const checkUser = async () => {
     try {
+      const supabase = await getSupabase()
+      if (!supabase) {
+        router.push('/auth/signin')
+        return
+      }
+
       const { data: { user } } = await supabase.auth.getUser()
-      
+
       if (!user) {
         router.push('/auth/signin')
         return
@@ -41,8 +57,11 @@ export default function ProfilePage() {
 
   const handleSignOut = async () => {
     try {
+      const supabase = await getSupabase()
+      if (!supabase) return
+
       const { error } = await supabase.auth.signOut()
-      
+
       if (error) throw error
 
       toast({
