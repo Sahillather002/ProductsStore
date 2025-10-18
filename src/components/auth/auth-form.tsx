@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -19,11 +18,27 @@ export function AuthForm() {
   const { toast } = useToast()
   const router = useRouter()
 
+  // Lazy load supabase to avoid build-time issues
+  const getSupabase = async () => {
+    try {
+      const { supabase } = await import('@/lib/supabase')
+      return supabase
+    } catch (error) {
+      console.warn('Supabase not available during build')
+      return null
+    }
+  }
+
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
     try {
+      const supabase = await getSupabase()
+      if (!supabase) {
+        throw new Error('Authentication service unavailable')
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -54,6 +69,11 @@ export function AuthForm() {
     setLoading(true)
 
     try {
+      const supabase = await getSupabase()
+      if (!supabase) {
+        throw new Error('Authentication service unavailable')
+      }
+
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -88,6 +108,11 @@ export function AuthForm() {
   const handleGoogleSignIn = async () => {
     setLoading(true)
     try {
+      const supabase = await getSupabase()
+      if (!supabase) {
+        throw new Error('Authentication service unavailable')
+      }
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
